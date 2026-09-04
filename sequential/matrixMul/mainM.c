@@ -29,15 +29,15 @@ int main()
         }
     }
 
-    printf("Matrices initialized successfully.\n");
+    // printf("Matrices initialized successfully.\n");
 
     matrixMultiply(A, B, C, N);
 
     printf("Matrix multiplication complete!\n");
 
     // Optionally display the resulting matrix C
-    // printf("Resulting Matrix C:\n");
-    // displayMatrix(C, N);
+    printf("Resulting Matrix C:\n");
+    displayMatrix(C, N);
 
     // Free dynamically allocated memory
     for (int i = 0; i < N; ++i) {
