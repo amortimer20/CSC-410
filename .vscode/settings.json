@@ -1,0 +1,8 @@
+{
+    "code-runner.executorMap":
+    {
+        "c": "cd $dir && gcc $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+    },
+    "code-runner.clearPreviousOutput": true,
+    "code-runner.runInTerminal": true
+}
