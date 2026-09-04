@@ -1,7 +1,7 @@
 {
     "code-runner.executorMap":
     {
-        "c": "cd $dir && gcc $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+        "c": "cd $dir && gcc $fileName -o $fileNameWithoutExt.out && $dir$fileNameWithoutExt.out",
     },
     "code-runner.clearPreviousOutput": true,
     "code-runner.runInTerminal": true
