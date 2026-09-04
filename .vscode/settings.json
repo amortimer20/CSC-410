@@ -4,5 +4,6 @@
         "c": "cd $dir && gcc $fileName -o $fileNameWithoutExt.out && $dir$fileNameWithoutExt.out",
     },
     "code-runner.clearPreviousOutput": true,
-    "code-runner.runInTerminal": true
+    "code-runner.runInTerminal": true,
+    "code-runner.ignoreSelection": true
 }
