@@ -1,4 +1,5 @@
 #include "sorts.h"
+#include "sorts.c"
 
 int main() 
 {
