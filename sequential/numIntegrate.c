@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#define N 100000 // intervals
+#define N 2140000000 // intervals
 
 double f(double x) {
     return 4.0 / (1.0 + x * x); // Function to integrate
