@@ -1,3 +1,7 @@
+# Assignment A1 - Anthony Mortimer
+## CSC 410 DT1
+
+
 ### Times ###
 
 1. Array Sum
@@ -20,7 +24,7 @@
     real    0m11.754s
     user    0m11.582s
     sys     0m0.033s
-5. Trapezoid Rule
+5. Trapezoidal Rule
     Size 2,140,000,000
     real    0m5.495s
     user    0m5.493s
