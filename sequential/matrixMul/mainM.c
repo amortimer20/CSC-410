@@ -37,7 +37,7 @@ int main()
 
     // Optionally display the resulting matrix C
     printf("Resulting Matrix C:\n");
-    displayMatrix(C, N);
+    // displayMatrix(C, N);
 
     // Free dynamically allocated memory
     for (int i = 0; i < N; ++i) {
