@@ -2,7 +2,7 @@
 
 int main() 
 {
-    int n = 8;
+    int n = 15;
     int* board = (int*)malloc(n * sizeof(int));
     if (board == NULL) {
         fprintf(stderr, "Memory allocation failed\n");
@@ -14,6 +14,7 @@ int main()
     }
 
     solveNQueensUtil(board, 0, n);
+    printBoard(board, n);
 
     free(board);
     return 0;
