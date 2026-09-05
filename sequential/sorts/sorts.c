@@ -3,7 +3,41 @@
 // Merge Sort 
 static void merge(int arr[], int left, int mid, int right) 
 {
-    // complete this
+    int leftSize = mid - left + 1;
+    int rightSize = right - mid;
+    int leftTempArr[leftSize];
+    int rightTempArr[rightSize];
+
+    for (int i = 0; i < leftSize; i++)
+    {
+        leftTempArr[i] = arr[left + i];
+    }
+
+    for (int i = 0; i < rightSize; i++)
+    {
+        rightTempArr[i] = arr[mid + i + 1];
+    }
+
+    int i = 0;
+    int j = 0;
+    int k = left;
+
+    while (i < leftSize && j < rightSize)
+    {
+        if (leftTempArr[i] <= rightTempArr[j])
+        {
+            arr[k] = leftTempArr[i];
+            i++;
+        }
+        else
+        {
+            arr[k] = rightTempArr[j];
+            j++;
+        }
+
+        k++;
+    }
+
 }
 
 void mergeSort(int arr[], int left, int right) 
