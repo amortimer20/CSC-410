@@ -38,6 +38,20 @@ static void merge(int arr[], int left, int mid, int right)
         k++;
     }
 
+    while (i < leftSize)
+    {
+        arr[k] = leftTempArr[i];
+        i++;
+        k++;
+    }
+
+    while (j < rightSize)
+    {
+        arr[k] = rightTempArr[j];
+        j++;
+        k++;
+    }
+
 }
 
 void mergeSort(int arr[], int left, int right) 
