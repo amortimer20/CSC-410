@@ -28,6 +28,9 @@ int main(int argc, char *argv[])
     // complete this
     long long totalSum = 0;
     int pipes[NUM_PROCESSES][2];
+
+    // Work size = Number Length / Number of processes
+    // Add leftover to last child process
     int workSize = N / NUM_PROCESSES;
     int workLeftoverSize = N % NUM_PROCESSES;
 
@@ -57,6 +60,7 @@ int main(int argc, char *argv[])
         {
             close(pipes[i][0]); // Close child read pipe
 
+            // Calculate sum for current section
             long long sum = 0;
 
             for (int j = startIndex; j < endIndex; j++)
@@ -69,10 +73,12 @@ int main(int argc, char *argv[])
             return 0;
         }
 
+        // Move to next unit of work
         startIndex += workSize;
         endIndex += workSize;
     }
 
+    // Accumulate sum from all child processes
     for (int i = 0; i < NUM_PROCESSES; i++)
     {
         wait(NULL);
