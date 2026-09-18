@@ -39,7 +39,6 @@ int main(int argc, char *argv[])
 
     int startIndex = 0;
     int endIndex = startIndex + workSize;
-    int pipeIndex = 0;
 
     for (int i = 0; i < NUM_PROCESSES; i++)
     {
