@@ -26,6 +26,64 @@ int main(int argc, char *argv[])
     }
 
     // complete this
+    long long totalSum = 0;
+    int pipes[NUM_PROCESSES][2];
+    int workSize = N / NUM_PROCESSES;
+    int workLeftoverSize = N % NUM_PROCESSES;
+
+    // Open pipes
+    for (int i = 0; i < NUM_PROCESSES; i++)
+    {
+        pipe(pipes[i]);
+    }
+
+    int startIndex = 0;
+    int endIndex = startIndex + workSize;
+    int pipeIndex = 0;
+
+    for (int i = 0; i < NUM_PROCESSES; i++)
+    {
+        if (i == 3)
+        {
+            endIndex += workLeftoverSize;
+        }
+
+        pid_t p = fork();
+
+        if (p > 0)
+        {
+            close(pipes[i][1]); // Close parent write pipe
+        }
+        if (p == 0)
+        {
+            close(pipes[i][0]); // Close child read pipe
+
+            long long sum = 0;
+
+            for (int j = startIndex; j < endIndex; j++)
+            {
+                sum += arr[j];
+            }
+            
+            write(pipes[i][1], &sum, sizeof(sum));
+            close(pipes[i][1]);
+            return 0;
+        }
+
+        startIndex += workSize;
+        endIndex += workSize;
+    }
+
+    for (int i = 0; i < NUM_PROCESSES; i++)
+    {
+        wait(NULL);
+
+        long long returnedSum;
+        read(pipes[i][0], &returnedSum, sizeof(returnedSum));
+        close(pipes[i][0]);
+        totalSum += returnedSum;
+    }
     
+    printf("Total sum = %lld\n", totalSum);
     return 0;
 }
