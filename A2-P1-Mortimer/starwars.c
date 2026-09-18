@@ -60,7 +60,7 @@ int main() {
     if (pid == -1)
     {
         printf("Fork failed.");
-        return -1;
+        return 1;
     }
     
     // Make parent process wait for all child processes to complete 
