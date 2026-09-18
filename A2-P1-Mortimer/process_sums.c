@@ -5,7 +5,7 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
-#define NUM_PROCESSES 4 
+#define NUM_PROCESSES 4
 
 int main(int argc, char *argv[]) 
 {
@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
 
     for (int i = 0; i < NUM_PROCESSES; i++)
     {
-        if (i == 3)
+        if (i == NUM_PROCESSES - 1)
         {
             endIndex += workLeftoverSize;
         }
