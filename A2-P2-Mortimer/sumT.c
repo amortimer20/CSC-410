@@ -19,7 +19,7 @@ void* sumPart(void* arg)
     // Last thread goes to the end of the array
     int id = *(int *)arg;
     long startIndex = id * workSize;   
-    long endIndex = id == NUM_THREADS - 1 ? SIZE - 1 : startIndex + workSize;
+    long endIndex = id == NUM_THREADS - 1 ? SIZE : startIndex + workSize;
     long long sum = 0;
 
     for (int i = startIndex; i < endIndex; i++)
