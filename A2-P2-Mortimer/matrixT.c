@@ -51,7 +51,6 @@ int main()
     for (int i = 0; i < NUM_THREADS; i++)
     {
         // Eventually Populate arg
-        threadIds[i] = i;
         pthread_create(&threadData[i], NULL, matrixMultiplyThread, NULL);
     }
     
