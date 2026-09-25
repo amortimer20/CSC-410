@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define SIZE 1000000000
+#define SIZE 100000000
 
 long long sumArray(int arr[], int size)
 {
