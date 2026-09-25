@@ -3,6 +3,22 @@
 int main() 
 {
     // declare thread id and thread data
+    thread_data_t threadData[NUM_THREADS];
+
+    for (int i = 0; i < NUM_THREADS; i++)
+    {
+        threadData[i].thread_id = i;
+
+        if (i < NUM_THREADS - 1)
+        {
+            threadData[i].num_rows = N / NUM_THREADS;
+        }
+        else
+        {
+            // Give last thread remaining rows
+            threadData[i].num_rows = N / NUM_THREADS + N % NUM_THREADS;
+        } 
+    }
     
     // Dynamically allocate memory for the matrices
     A = (int**)malloc(N * sizeof(int*));
@@ -32,6 +48,13 @@ int main()
     printf("Matrices initialized successfully.\n");
 
     // Create threads to perform matrix multiplication
+    for (int i = 0; i < NUM_THREADS; i++)
+    {
+        // Eventually Populate arg
+        threadIds[i] = i;
+        pthread_create(&threadData[i], NULL, matrixMultiplyThread, NULL);
+    }
+    
 
     // Wait for all threads to complete
 
