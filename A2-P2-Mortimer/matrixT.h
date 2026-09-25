@@ -5,6 +5,8 @@
 #define N 1000  // Size of the matrix
 #define NUM_THREADS 4  // Number of threads
 
+
+
 int **A, **B, **C;  // Global matrices
 
 // Structure to hold information for each thread
@@ -18,7 +20,23 @@ typedef struct
 void* matrixMultiplyThread(void* arg) 
 {
     // Divide the task (rows) of each thread based on thread id
+    thread_data_t thread = *(thread_data_t *)arg;
+    int startRow = thread.thread_id * (N / NUM_THREADS);
+    int endRow = startRow + thread.num_rows;
+    
     // compute a portion of the matrix multiplication
+    for (int i = startRow; i < endRow; i++)
+    {
+        for (int j = 0; j < N; j++)
+        {
+            for (int k = 0; k < N; k++)
+            {
+                C[i][j] += A[i][k] * B[k][j];
+            }
+        }
+    }
+
+    return NULL;
 }
 
 void displayMatrix(int** matrix, int n) 

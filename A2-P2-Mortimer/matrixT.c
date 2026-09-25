@@ -4,6 +4,7 @@ int main()
 {
     // declare thread id and thread data
     thread_data_t threadData[NUM_THREADS];
+    pthread_t threadIds[NUM_THREADS];
 
     for (int i = 0; i < NUM_THREADS; i++)
     {
@@ -51,12 +52,16 @@ int main()
     for (int i = 0; i < NUM_THREADS; i++)
     {
         // Eventually Populate arg
-        pthread_create(&threadData[i], NULL, matrixMultiplyThread, NULL);
+        pthread_create(&threadIds[i], NULL, matrixMultiplyThread, &threadData[i]);
     }
     
 
     // Wait for all threads to complete
-
+    for (int i = 0; i < NUM_THREADS; i++)
+    {
+        pthread_join(threadIds[i], NULL);
+    }
+    
 
     printf("Matrix multiplication complete!\n");
 
