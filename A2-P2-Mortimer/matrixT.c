@@ -66,7 +66,7 @@ int main()
     printf("Matrix multiplication complete!\n");
 
     // Optionally, display the resulting matrix C (Not when you are timing :) )
-    displayMatrix(C, N);
+    // displayMatrix(C, N);
 
     // Free dynamically allocated memory
     for (int i = 0; i < N; ++i) {
