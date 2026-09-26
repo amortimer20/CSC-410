@@ -1,0 +1,8 @@
+# Anthony Mortimer - A2 Part 2
+## CSC 410 DT1
+
+Files:
+- matrixT.c and matrixT.h - Multi-threaded implementation of the matrix multiplication program.
+- sumT - Multi-threaded implementation of the array sum program.
+- Mortimer - A2 Part 2.pdf: Written answers to Task 2 and Task 4
+- Screenshot.png: Sample output for sumT and matrixT
