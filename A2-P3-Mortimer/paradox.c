@@ -36,7 +36,7 @@ static void *worker(void *arg)
 {
     ThreadData *data = (ThreadData *)arg;
 
-    // double local = 0.0;
+    double local = 0.0;
 
     double value;
 
@@ -59,9 +59,9 @@ static void *worker(void *arg)
     }
 
     for (size_t i = 0; i < ITERATIONS; i++) {
-        // local += value;
-        // *data->sum = local;
-        *data->sum += value;
+        local += value;
+        *data->sum = local;
+        // *data->sum += value;
     }
 
     return NULL;
