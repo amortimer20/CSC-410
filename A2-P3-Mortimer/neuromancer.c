@@ -14,16 +14,41 @@ int currentPlayer = 0; // Index of the current player
 int gameActive = 1;    // Game state
 int scores[NUM_PLAYERS] = {0}; // Keep track of each player's score
 
+// Mutex and condition
+// Mutex protects access to game state
+// Condition makes sure each player knows when it's their turn
+pthread_mutex_t turnLock = PTHREAD_MUTEX_INITIALIZER;
+pthread_cond_t turnCompleted = PTHREAD_COND_INITIALIZER;
+
 
 void* hack(void* arg) {
     int id = *(int*)arg;
 
     while (gameActive) {
 
+        // Lock the current game state
+        pthread_mutex_lock(&turnLock);
+
+        // Player waits until it is their turn, but only continues if the 
+        // game is still going; Rechecked after every wake
+        while (currentPlayer != id && gameActive)
+        {
+            pthread_cond_wait(&turnCompleted, &turnLock);
+        }
+
+        // Don't take turn if game is over
+        if (!gameActive)
+        {
+            // Unlock mutex so players aren't stuck blocking
+            pthread_mutex_unlock(&turnLock);
+            break;
+        }
+
         // Simulate hacking
         printf("Player %d is attempting to hack... -------------- Current Player (%d)\n", id + 1, currentPlayer+1);
-        sleep(1); 
-        
+        sleep(1);
+
+
         // Randomly determine success or failure
         int hackResult = rand() % 10 + 1;
         if (hackResult <= 6) { // 60% chance of success
@@ -36,6 +61,9 @@ void* hack(void* arg) {
         // Move to the next player
         currentPlayer = (currentPlayer + 1) % NUM_PLAYERS;
 
+        // Tell other players turn is over
+        pthread_cond_broadcast(&turnCompleted);
+        pthread_mutex_unlock(&turnLock);
     }
     
     return NULL;
@@ -58,6 +86,10 @@ int main() {
     // Let the game run for a specified duration
     sleep(GAME_DURATION);
     gameActive = 0; // End the game
+    
+    // Wake players waiting for a turn; Game is already over
+    pthread_cond_broadcast(&turnCompleted);
+    pthread_mutex_unlock(&turnLock);
 
 
     // Join player threads
