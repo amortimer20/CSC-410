@@ -9,7 +9,10 @@
 #define ARRAY_SIZE 20
 
 int numbers[ARRAY_SIZE] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20}; 
-int partial_sums[NUM_THREADS] = {0}; 
+int partial_sums[NUM_THREADS] = {0};
+
+// Use a barrier to make each thread wait after finishing their partial sum
+pthread_barrier_t barrier;
 
 void* func(void* arg) {
     int id = *((int*)arg);
@@ -24,6 +27,8 @@ void* func(void* arg) {
     }
     printf("Thread %d: Partial sum is %d.\n", id, partial_sums[id]);
 
+    // Each thread must wait until all other threads are done with phase 1
+    pthread_barrier_wait(&barrier);
 
     // Phase 2: Calculate the total sum and average
     if (id == 0) { // Only the first thread calculates the final average
@@ -42,6 +47,9 @@ int main() {
     pthread_t threads[NUM_THREADS];
     int thread_ids[NUM_THREADS] = {0, 1, 2, 3, 4};
 
+    // Initialize barrier; must match number of threads
+    pthread_barrier_init(&barrier, NULL, NUM_THREADS);
+
     // Create threads
     for (int i = 0; i < NUM_THREADS; i++) {
         pthread_create(&threads[i], NULL, func, &thread_ids[i]);
@@ -51,6 +59,9 @@ int main() {
     for (int i = 0; i < NUM_THREADS; i++) {
         pthread_join(threads[i], NULL);
     }
+
+    // Destroy barrier after task is complete; it's not needed anymore
+    pthread_barrier_destroy(&barrier);
 
     return 0;
 }
